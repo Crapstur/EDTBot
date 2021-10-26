@@ -78,8 +78,8 @@ try:
     reduire = driver.find_elements_by_id('#1')[1]
     reduire.click()
 
-
-    with open('./images/cyber.png', 'wb') as file:
+    PNG_cyber = './images/cyber.png'
+    with open(PNG_cyber, 'wb') as file:
         img = driver.find_element_by_id("entryform")
         file.write(img.screenshot_as_png)
 

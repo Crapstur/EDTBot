@@ -7,15 +7,13 @@ import datetime
 import logging
 from dotenv import load_dotenv
 
-logging.basicConfig(filename='/var/log/EDTBot/edt.log', level=logging.INFO)
+logging.basicConfig(filename='/var/log/EDTBot/edt_TEST.log', level=logging.INFO)
 logging.info(str(datetime.datetime.today()) + ' : Search EDT ASUR B')
 
 try:
     load_dotenv()
-
     login_gpu = os.getenv('LOGIN_GPU')
     mdp_gpu = os.getenv('MDP_GPU')
-
 
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
@@ -25,7 +23,6 @@ try:
     site = "https://iut-gpu.unice.fr/"
 
     driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=options)
-
 
     year = datetime.date.today().year
     month = datetime.date.today().month
@@ -41,7 +38,7 @@ try:
 
     passwd = driver.find_element_by_id("password")
     passwd.send_keys(mdp_gpu)
-
+    
     connect_btn = driver.find_element_by_class_name("btn-submit")
     connect_btn.click()
 
@@ -70,7 +67,6 @@ try:
     semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr))
     date_semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr)).get_attribute("title")
     semaine.click()
-
     for i in range(1,10):
         encres = driver.find_elements_by_tag_name('a')
         encres[14].click()
@@ -79,7 +75,8 @@ try:
     reduire = driver.find_elements_by_id('#1')[1]
     reduire.click()
 
-    with open('./images/asurB.png', 'wb') as file:
+    PNG_asurB = '/home/userbot/EDTBot/images/asurB.png'
+    with open(PNG_asurB, 'wb') as file:
         img = driver.find_element_by_id("entryform")
         file.write(img.screenshot_as_png)
 

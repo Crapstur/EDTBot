@@ -79,17 +79,18 @@ try:
     reduire = driver.find_elements_by_id('#1')[1]
     reduire.click()
 
-    with open('./images/asurA.png', 'wb') as file:
+    PNG_asurA = '/home/userbot/EDTBot/images/asurA.png'
+    with open(PNG_asurA, 'wb') as file:
         img = driver.find_element_by_id("entryform")
         file.write(img.screenshot_as_png)
 
     driver.close()
 
     os.environ["SEMAINE_NBR"] = str(week_nbr)
-    dotenv.set_key('../DiscordBot/.env', "SEMAINE_NBR", os.environ["SEMAINE_NBR"])
+    dotenv.set_key('/home/userbot/DiscordBot/.env', "SEMAINE_NBR", os.environ["SEMAINE_NBR"])
 
     os.environ["WEEK_DATE"] = str(date_semaine)
-    dotenv.set_key('../DiscordBot/.env', "WEEK_DATE", os.environ["WEEK_DATE"])
+    dotenv.set_key('/home/userbot/DiscordBot/.env', "WEEK_DATE", os.environ["WEEK_DATE"])
 
     logging.info(str(datetime.datetime.today()) + ' : Done')
 except:
