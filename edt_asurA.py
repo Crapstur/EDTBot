@@ -11,6 +11,8 @@ import dotenv
 logging.basicConfig(filename='/var/log/EDTBot/edt.log', level=logging.INFO)
 logging.info(str(datetime.datetime.today()) + ' : Search EDT ASUR A')
 
+os.chdir('/home/userbot/EDTBot/')
+
 try:
     load_dotenv()
 
@@ -79,8 +81,7 @@ try:
     reduire = driver.find_elements_by_id('#1')[1]
     reduire.click()
 
-    PNG_asurA = '/home/userbot/EDTBot/images/asurA.png'
-    with open(PNG_asurA, 'wb') as file:
+    with open('./images/asurA.png', 'wb') as file:
         img = driver.find_element_by_id("entryform")
         file.write(img.screenshot_as_png)
 

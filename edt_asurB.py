@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 logging.basicConfig(filename='/var/log/EDTBot/edt_TEST.log', level=logging.INFO)
 logging.info(str(datetime.datetime.today()) + ' : Search EDT ASUR B')
 
+os.chdir('/home/userbot/EDTBot/')
+
 try:
     load_dotenv()
     login_gpu = os.getenv('LOGIN_GPU')
@@ -59,7 +61,6 @@ try:
 
 
     week_nbr = int(week)
-    #week_nbr = 30
 
     while (driver.find_element_by_name('btn_sem_' + str(week_nbr)).value_of_css_property("cursor") != "pointer") :
         week_nbr += 1
@@ -75,8 +76,7 @@ try:
     reduire = driver.find_elements_by_id('#1')[1]
     reduire.click()
 
-    PNG_asurB = '/home/userbot/EDTBot/images/asurB.png'
-    with open(PNG_asurB, 'wb') as file:
+    with open('./images/asurB.png', 'wb') as file:
         img = driver.find_element_by_id("entryform")
         file.write(img.screenshot_as_png)
 

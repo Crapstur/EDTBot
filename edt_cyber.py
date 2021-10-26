@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 logging.basicConfig(filename='/var/log/EDTBot/edt.log', level=logging.INFO)
 logging.info(str(datetime.datetime.today()) + ' : Search EDT CYBER')
 
+os.chdir('/home/userbot/EDTBot/')
+
 try:
     load_dotenv()
 
@@ -61,7 +63,6 @@ try:
 
 
     week_nbr = int(week)
-    #week_nbr = 30
 
     while (driver.find_element_by_name('btn_sem_' + str(week_nbr)).value_of_css_property("cursor") != "pointer") :
         week_nbr += 1
@@ -78,8 +79,7 @@ try:
     reduire = driver.find_elements_by_id('#1')[1]
     reduire.click()
 
-    PNG_cyber = './images/cyber.png'
-    with open(PNG_cyber, 'wb') as file:
+    with open('./images/cyber.png', 'wb') as file:
         img = driver.find_element_by_id("entryform")
         file.write(img.screenshot_as_png)
 
