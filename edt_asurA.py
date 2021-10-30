@@ -90,8 +90,6 @@ try:
             img = driver.find_element_by_id("entryform")
             file.write(img.screenshot_as_png)
 
-        driver.close()
-
         os.environ["SEMAINE_NBR"] = str(week_nbr)
         dotenv.set_key('/home/userbot/DiscordBot/.env', "SEMAINE_NBR", os.environ["SEMAINE_NBR"])
 
@@ -103,3 +101,5 @@ try:
         logging.error(str(datetime.datetime.today()) + ' : !! Site unreachable !!')
 except:
     logging.error(str(datetime.datetime.today()) + ' : !! ERROR !!')
+
+driver.close()

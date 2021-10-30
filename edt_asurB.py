@@ -87,10 +87,10 @@ try:
             img = driver.find_element_by_id("entryform")
             file.write(img.screenshot_as_png)
 
-        driver.close()
-
         logging.info(str(datetime.datetime.today()) + ' : Done')
     except:
         logging.error(str(datetime.datetime.today()) + ' : !! Site unreachable !!')
 except:
     logging.error(str(datetime.datetime.today()) + ' : !! ERROR !!')
+
+driver.close()
