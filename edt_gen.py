@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import Select
 import os
 import datetime
 import logging
+from calendar import monthrange
 from dotenv import load_dotenv
 
 logging.basicConfig(filename='/var/log/EDTBot/edt.log', level=logging.INFO)
@@ -31,58 +32,66 @@ try:
     year = datetime.date.today().year
     month = datetime.date.today().month
     day = datetime.date.today().day + 2
+    num_days = monthrange(year, month)[1]
+
+    if day > num_days:
+        month += 1
+        day = 1
 
     week = datetime.date(year, month, day).isocalendar()[1]
 
-    driver.get(site)
-    driver.maximize_window()
+    try:
+        driver.get(site)
+        driver.maximize_window()
 
-    login = driver.find_element_by_id("username")
-    login.send_keys(login_gpu)
+        login = driver.find_element_by_id("username")
+        login.send_keys(login_gpu)
 
-    passwd = driver.find_element_by_id("password")
-    passwd.send_keys(mdp_gpu)
+        passwd = driver.find_element_by_id("password")
+        passwd.send_keys(mdp_gpu)
 
-    connect_btn = driver.find_element_by_class_name("btn-submit")
-    connect_btn.click()
+        connect_btn = driver.find_element_by_class_name("btn-submit")
+        connect_btn.click()
 
-    infos = driver.find_element_by_link_text('GPU')
-    infos.click()
+        infos = driver.find_element_by_link_text('GPU')
+        infos.click()
 
-    edt = driver.find_element_by_link_text('Emplois du temps')
-    edt.click()
+        edt = driver.find_element_by_link_text('Emplois du temps')
+        edt.click()
 
-    edt_grp = driver.find_element_by_link_text('EDT Filières')
-    edt_grp.click()
+        edt_grp = driver.find_element_by_link_text('EDT Filières')
+        edt_grp.click()
 
-    select = Select(driver.find_element_by_name('filiere'))
-    select.select_by_value('LP-ASSR')
-
-
-    week_nbr = int(week)
-
-    while (driver.find_element_by_name('btn_sem_' + str(week_nbr)).value_of_css_property("cursor") != "pointer") :
-        week_nbr += 1
-
-    semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr))
-    date_semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr)).get_attribute("title")
-    semaine.click()
+        select = Select(driver.find_element_by_name('filiere'))
+        select.select_by_value('LP-ASSR')
 
 
-    for i in range(1,7):
-        encres = driver.find_elements_by_tag_name('a')
-        encres[14].click()
+        week_nbr = int(week)
+
+        while (driver.find_element_by_name('btn_sem_' + str(week_nbr)).value_of_css_property("cursor") != "pointer") :
+            week_nbr += 1
+
+        semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr))
+        date_semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr)).get_attribute("title")
+        semaine.click()
 
 
-    reduire = driver.find_elements_by_id('#1')[1]
-    reduire.click()
+        for i in range(1,7):
+            encres = driver.find_elements_by_tag_name('a')
+            encres[14].click()
 
-    with open('./images/gen.png', 'wb') as file:
-        img = driver.find_element_by_id("entryform")
-        file.write(img.screenshot_as_png)
 
-    driver.close()
+        reduire = driver.find_elements_by_id('#1')[1]
+        reduire.click()
 
-    logging.info(str(datetime.datetime.today()) + ' : Done')
+        with open('./images/gen.png', 'wb') as file:
+            img = driver.find_element_by_id("entryform")
+            file.write(img.screenshot_as_png)
+
+        driver.close()
+
+        logging.info(str(datetime.datetime.today()) + ' : Done')
+    except:
+        logging.error(str(datetime.datetime.today()) + ' : !! Site unreachable !!')
 except:
     logging.error(str(datetime.datetime.today()) + ' : !! ERROR !!')
