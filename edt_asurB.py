@@ -73,7 +73,7 @@ try:
             week_nbr += 1
 
         semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr))
-        date_semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr)).get_attribute("title")
+        date_semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr)).attribute("title")
         semaine.click()
         for i in range(1,10):
             encres = driver.find_elements_by_tag_name('a')
