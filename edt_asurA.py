@@ -22,7 +22,7 @@ try:
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     options.add_argument('--no-sandbox')
-    options.add_argument("--window-size=1600,900")
+    options.add_argument("--window-size=1920,1080")
 
     site = "https://iut-gpu.unice.fr/"
 
@@ -88,7 +88,7 @@ try:
     reduire.click()
 
     with open('./images/asurA.png', 'wb') as file:
-        img = driver.find_element_by_id("entryform")
+        img = driver.find_element_by_xpath('//*[@id="entryform"]/table')
         file.write(img.screenshot_as_png)
 
     os.environ["SEMAINE_NBR"] = str(week_nbr)
