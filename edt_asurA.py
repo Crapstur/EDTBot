@@ -36,7 +36,6 @@ try:
     if day > num_days:
         month += 1
         day = 1
-
     week = datetime.date(year, month, day).isocalendar()[1]
 
     try:
@@ -72,7 +71,10 @@ try:
     week_nbr = int(week)
 
     while (driver.find_element_by_name('btn_sem_' + str(week_nbr)).value_of_css_property("cursor") != "pointer") :
-        week_nbr += 1
+        if week_nbr >= 52 :
+            week_nbr = 1
+        else:
+            week_nbr += 1
 
     semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr))
     date_semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr)).get_attribute("title")
