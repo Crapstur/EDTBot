@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from calendar import monthrange
 
 logging.basicConfig(filename='/var/log/EDTBot/edt.log', level=logging.INFO)
-logging.info(str(datetime.datetime.today()) + ' : Search EDT ASUR A')
+logging.warning(str(datetime.datetime.today()) + ' : Search EDT ASUR A')
 
 os.chdir('/home/userbot/EDTBot/')
 
@@ -98,7 +98,9 @@ try:
     dotenv.set_key('/home/userbot/DiscordBot/.env', "WEEK_DATE", os.environ["WEEK_DATE"])
 
     logging.info(str(datetime.datetime.today()) + ' : Done')
+    logging.info(str(datetime.datetime.today()) + ' : Finished without error')
 except:
     logging.error(str(datetime.datetime.today()) + ' : !! ERROR !!')
 
 driver.close()
+logging.warning(str(datetime.datetime.today()) + ' : END EDT ASUR A')
