@@ -77,6 +77,9 @@ try:
         else:
             week_nbr += 1
 
+    if week_nbr >= 30:
+        week_nbr = os.getenv('SEMAINE_NBR')
+
     semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr))
 
     date_semaine = driver.find_element_by_name('btn_sem_' + str(week_nbr)).get_attribute("title")
