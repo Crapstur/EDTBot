@@ -97,6 +97,8 @@ try:
     os.environ["SEMAINE_NBR"] = str(week_nbr)
     dotenv.set_key('/home/userbot/DiscordBot/.env', "SEMAINE_NBR", os.environ["SEMAINE_NBR"])
 
+    os.chmod("/home/userbot/DiscordBot/.env", 0o711)
+
     os.environ["WEEK_DATE"] = str(date_semaine)
     dotenv.set_key('/home/userbot/DiscordBot/.env', "WEEK_DATE", os.environ["WEEK_DATE"])
 
